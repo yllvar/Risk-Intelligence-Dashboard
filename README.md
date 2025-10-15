@@ -2,6 +2,8 @@
 
 A Next.js application for monitoring and analyzing risk metrics in real-time.
 
+<img width="599" height="231" alt="Screenshot 2025-10-16 at 01 50 20" src="https://github.com/user-attachments/assets/31d68cc7-e492-43af-ab4f-c4cb854d540d" />
+
 ## Features
 - Real-time risk metrics visualization
 - Whale activity tracking

@@ -1,0 +1,15 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@import",
+      "description": "Import Tailwind CSS in v4 using @import 'tailwindcss';",
+      "references": [
+        {
+          "name": "Tailwind CSS v4 Documentation",
+          "url": "https://tailwindcss.com/docs/v4-beta"
+        }
+      ]
+    }
+  ]
+}

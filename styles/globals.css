@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* Custom styles */
+:root {
+  --primary: #2563eb;
+  --secondary: #7c3aed;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+body {
+  background-color: rgb(249 250 251); /* gray-50 */
+  min-height: 100vh;
+}
+
+/* Dashboard layout */
+.dashboard-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-header {
+  background-color: white;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-main {
+  display: flex;
+  flex: 1;
+}
+
+.dashboard-sidebar {
+  width: 16rem;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  padding: 1rem;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+/* Card styles */
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  padding: 1.5rem;
+}
+
+.card-header {
+  border-bottom: 1px solid rgb(243 244 246);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Status indicators */
+.status-success {
+  background-color: rgb(236 253 245);
+  color: rgb(21 128 61);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+}
+
+.status-warning {
+  background-color: rgb(254 249 195);
+  color: rgb(161 98 7);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+}
+
+.status-danger {
+  background-color: rgb(254 226 226);
+  color: rgb(185 28 28);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+}

@@ -1,7 +1,5 @@
 # Risk Intelligence Dashboard
 
-![Dashboard Screenshot](https://github.com/yllvar/Risk-Intelligence-Dashboard/raw/main/public/screenshot.png)
-
 A Next.js application for monitoring and analyzing DeFi protocol risk metrics in real-time.
 
 <img width="599" height="231" alt="Screenshot 2025-10-16 at 01 50 20" src="https://github.com/user-attachments/assets/31d68cc7-e492-43af-ab4f-c4cb854d540d" />
@@ -49,7 +47,12 @@ cp .env.example .env.local
 yarn db:init
 ```
 
-5. Start development server:
+5. Start Backend server:
+```bash
+yarn api
+```
+
+5. Start frontend server:
 ```bash
 yarn dev
 ```

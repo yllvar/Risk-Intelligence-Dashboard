@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import DataFreshnessIndicator from '../components/DataFreshnessIndicator';
-import MetricCard from '../components/MetricCard';
+import { MetricCard, RScoreCard } from '../components/MetricCard';
 import VolatilityChart from '../components/VolatilityChart';
 import WhaleActivityList from '../components/WhaleActivityList';
 
@@ -18,12 +18,16 @@ export default function Dashboard() {
     try {
       const response = await fetch('/api/protocol-data');
       const json = await response.json();
+      console.log('API Response:', json);
       setData(json);
       cacheData(json);
     } catch (error) {
       console.error('Failed to fetch data:', error);
       const cached = getCachedData();
-      if (cached) setData({ ...cached, stale: true });
+      if (cached) {
+        console.log('Using cached data:', cached);
+        setData({ ...cached, stale: true });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -48,7 +52,10 @@ export default function Dashboard() {
   const getCachedData = () => {
     if (typeof window !== 'undefined') {
       const cached = localStorage.getItem('lastData');
-      return cached ? JSON.parse(cached) : null;
+      return cached ? { 
+        ...JSON.parse(cached), 
+        whale_activity: JSON.parse(cached.whale_activity || '[]') 
+      } : null;
     }
     return null;
   };
@@ -88,6 +95,13 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <VolatilityChart data={data?.price_volatility} />
           <WhaleActivityList activities={data?.whale_activity} />
+        </div>
+
+        <div className="grid grid-cols-1 gap-4">
+          <RScoreCard 
+            score={data?.composite_r_score} 
+            stale={data?.stale} 
+          />
         </div>
 
         <button 

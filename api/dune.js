@@ -10,6 +10,13 @@ const REFRESH_INTERVALS = {
   whales: 24 * 3600 * 1000  // Daily
 };
 
+// Free public query IDs
+const QUERY_IDS = {
+  health: 3899,  // Ethereum TVL
+  prices: 3900,  // ETH price
+  whales: 3901   // Whale movements
+};
+
 class DuneClient {
   constructor() {
     this.rateLimit = {
@@ -124,25 +131,38 @@ class DuneClient {
 
   async getProtocolData(protocol) {
     try {
-      const [health, prices, whales] = await Promise.all([
-        this.duneQuery(123456),
-        this.duneQuery(123457),
-        this.duneQuery(123458)
-      ]);
-      
-      const combined = {
-        ...health,
-        price_volatility: prices['7d_volatility'], 
-        whale_activity: whales,
-        last_updated: DateTime.now().toISO()
-      };
-      
-      await this.cacheData(combined);
-      return combined;
-    } catch (error) {
-      console.warn('Using cached data due to API failure');
+      // First try to get cached data
       const cached = await this.getCachedData(protocol);
-      return { ...cached, stale: true };
+      
+      if (!cached) {
+        throw new Error('No cached data available');
+      }
+
+      // Parse whale_activity if it exists
+      const whaleActivity = cached.whale_activity 
+        ? typeof cached.whale_activity === 'string' 
+          ? JSON.parse(cached.whale_activity) 
+          : cached.whale_activity
+        : [];
+
+      return {
+        tvl: cached.tvl || 0,
+        liquidity_depth: cached.liquidity_depth || 0,
+        price_volatility: cached.price_volatility || 0,
+        whale_activity: whaleActivity,
+        last_updated: cached.last_updated || DateTime.now().toISO(),
+        stale: false
+      };
+    } catch (error) {
+      console.warn('Using fallback data:', error.message);
+      return {
+        tvl: 0,
+        liquidity_depth: 0,
+        price_volatility: 0,
+        whale_activity: [],
+        last_updated: DateTime.now().toISO(),
+        stale: true
+      };
     }
   }
 
